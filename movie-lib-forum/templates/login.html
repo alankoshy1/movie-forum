@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+{% endblock %}
+{% block title %}
+StarGo+ | Login
+{% endblock %}
+{% block content %}
+<h1 style="text-align:center; padding: 10px ;">Login</h1>
+<form action="{% url 'credentialsapp:login' %}" method='post' style="background-color: rgb(224, 228, 243); border: 8px solid #04356A; border-radius: 10px; margin: 0 auto; padding: 20px; height: 35vh; width: 45vh;">
+    {% csrf_token %}
+    <table align="center" >
+        <tr>
+            <td>
+                <label>Username:</label>
+            </td>
+            <td>
+                <input type="text" name="username" placeholder="Enter the username">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Password:</label>
+            </td>
+            <td>
+                <input type="password" name="password" placeholder="Enter the password">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" class="btn btn-dark" style="margin: 20px 0 0 40px;">
+            </td>
+        </tr>
+    </table>
+
+</form>
+<div style="text-align: center; padding: 10px; font-weight: 600; color: red;">
+    {% for msg in messages %}
+        {{ msg }}
+    {% endfor %}
+</div>
+
+{% endblock %}

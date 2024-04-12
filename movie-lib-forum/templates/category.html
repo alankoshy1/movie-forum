@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.desc|truncatewords:150 }}
+    {% else %}
+        Welcome to movie store.
+    {% endif%}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name}} -movie
+    {% else %}
+    StarGo+ | Movie Library
+    {% endif%}
+{% endblock %}
+{% block content %}
+    {% if category %}
+        <div>
+            <div class="row my_row_class p-2">
+                <div class="mx-auto my-auto">
+                    <p>
+                        <a href="{% url 'movieapp:allMovieCat' %}">Home</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div>
+        {% if category.name == NULL %}
+            <h1 class="text-center my_title" style="padding: 10px; border-bottom: dotted 1px; margin-bottom: 10px; width: 90%; height: 45px; margin: 0 auto;">Movie Catalog</h1>
+        {% else %}
+            <h1 class="text-center my_title" style="padding: 10px; border-bottom: dotted 1px; margin-bottom: 10px; width: 90%; height: 45px; margin: 0 auto;">Movies in the {{category.name}} Category</h1>
+        {% endif %}
+
+    </div>
+
+<div class="mx_auto">
+            {% if movies.paginator.num_pages > 1 %}
+            <hr>
+        <div class="text-center">
+                {% for pg in movies.paginator.page_range %}
+                    <a href="?page={{pg}}" class="btn btn-light btn-sm {% if movies.number == pg %} active {% endif %}" >{{pg}}</a>
+                {% endfor %}
+        </div>
+            {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if movies.object_list %}
+                {% for movie in movies.object_list %}
+                <div class="col-md-3" style="padding:20px;">
+                    <div class="d-flex justify-content-center">
+                        <div class="card hoverable-card" style="width:250px;">
+                        <a href="{{movie.get_url}}"><img src="{{movie.image.url}}" alt="{{movie.name}}" style="height:300px;width:100%"></a>
+                            <div class="card-body text-center">
+                                <h4>
+                                    {{movie.name}}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+           <div class="row mx-auto">
+                <p class="text-center my_search_text">You have <span style="font-weight: 600;">NO</span> {{category.name}} movies right now. Add movies to this Category by clicking <a href="{% url 'movieapp:add' %}">Here!</a></p>
+            </div>
+        {% endif %}   
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% endblock %}
+{% block title %}
+Reviews and Discussions
+{% endblock %}
+{% block content %}
+<div class="container">
+
+	<div>
+		{% if user.is_authenticated %}
+		<form action="{% url 'userreviewapp:addReview' %}" method='post' style="padding: 0px;">
+			{% csrf_token %}
+			<table align="center" >
+				<tr>
+					<p class="text-center" style="border: 3px solid #060031; background-color:  #04356A; color: #dee8ff ; padding: 5px; font-size: 20px; font-weight: 500;">Drop your Comments down below and Start the Conversation!</p>
+					<div style="max-width: 180vh; display: flex;">
+						<div style="flex-grow: 1; margin-right: 10px;">
+							<input type="text" name="desc" placeholder="Enter your review here!" style="font-size: 18px; width: 100%;">
+						</div>
+						<div>
+							<input type="submit" style="font-size: 18px;">
+						</div>
+					</div>
+				</tr>
+			</table>
+		</form>
+		{% endif %}
+	</div>
+
+</div>
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+		<div class="col-md-12">
+		    <div class="blog-comment">
+				<h3 style="color:  #04356A; padding-top: 12px;">Reviews or Comments</h3>
+                <hr/>
+				<ul class="comments">
+					{% for rv in review %}
+						<li class="clearfix">
+						  <div class="post-comments">
+							  <p class="meta">{{rv.created}}</p>
+							  <p style="color: #0e4785;">{{rv.uname}} says :</p>
+							  <p>
+								  {{rv.desc}}
+							  </p>
+						  </div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

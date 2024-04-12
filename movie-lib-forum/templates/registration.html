@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+  Welcome to the Stargo+ MoviePlatform Registration Page
+
+{% endblock %}
+{% block title %}
+StarGo+ | Registration
+
+{% endblock %}
+{% block content %}
+<div>
+<h1 class="text-center p-2">Registration Form</h1>
+<form action="{% url 'credentialsapp:registrations' %}" method='post' style="background-color: rgb(224, 228, 243); border: 8px solid #04356A; border-radius: 10px; margin: 0 auto; padding: 20px; height: 55vh; width: 55vh;">
+    {% csrf_token %}
+    <table align="center" >
+        <tr>
+            <td>
+                <label>Username:</label>
+            </td>
+            <td>
+                <input type="text" name="username" placeholder="Enter Username">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>First Name:</label>
+            </td>
+            <td>
+                <input type="text" name="firstname" placeholder="Enter your First Name">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Last Name:</label>
+            </td>    
+            <td>
+                <input type="text" name="secondname" placeholder="Enter your Last Name">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Email:</label>
+            </td>    
+            <td>
+                <input type="email" name="email" placeholder="Enter E-mail">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password:</label>
+            </td>    
+            <td>
+                <input type="password" name="password" placeholder="Enter your Password">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Confirm :</label>
+            </td>    
+            <td>
+                <input type="password" name="confirmpaswword" placeholder="Please confirm Password">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" class="btn btn-dark" style="margin: 20px 0 0 40px;">
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+{% if profile_created %}
+    <div style="text-align:center; padding: 10px; font-weight: 600; color: rgb(80, 133, 0);">
+        <p>Profile created successfully, Please Proceed to Login!</p>
+
+    </div>
+{% endif %}
+<div style="text-align: center; padding: 10px; font-weight: 600; color: red;">
+    {% for msg in messages %}
+        {{ msg }}
+    {% endfor %}
+</div>
+
+{% endblock %}

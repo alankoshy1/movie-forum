@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% endblock %}
+{% block title %}
+StarGo+ | Favorites
+{% endblock %}
+{% block content %}
+
+<div>
+    <div class="row my_row_class p-2">
+        <div class="mx-auto my-auto">
+            <p>
+                <a href="{% url 'movieapp:allMovieCat' %}">Home</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <h1 class="text-center my_title" style="padding-bottom: 0px; border-bottom: dotted 1px; margin-bottom: 20px; width: 70%; height: 35px; margin: 0 auto;">Favorites</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% if movies %}
+            {% for movie1 in movies %}
+            <div class="col-md-3" style="padding:20px;">
+              <div class="d-flex justify-content-center">   
+                <div class="card hoverable-card" style="width: 250px;">
+                        <a href="{{movie1.movie.get_url}}"><img src="{{movie1.movie.image.url}}" alt="{{movie1.movie.name}}" style="height:300px;width:100%"></a>
+                        <div class="card-body">
+                        <h4 class="text-center"> {{movie1.movie.name}} </h4>
+                <a class="btn btn-danger p-1 mt-2" href="{% url 'favouritesapp:remove_favourites' movie1.movie.id %}" style="font-size: 12px; font-family: 'Verdana'; text-align: right;">Remove</a>  
+                        </div>
+                </div>
+              </div>  
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="row mx-auto">
+                <p class="text-center my_search_text">You have <span style="font-weight: 600;">NO</span> favourites yet. Add movies to your Favorites Catalog by visiting <a href="{% url 'movieapp:mymovies' %}">Your Library</a></p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
